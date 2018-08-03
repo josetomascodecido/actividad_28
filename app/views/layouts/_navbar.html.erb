@@ -1,11 +1,12 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed">
     <div class="navbar-header">
-      
+
       <%=link_to "Actividad 28", companies_path, class:"navbar-brand"%>
     </div>
     <ul class="nav navbar-nav">
       <li><%= link_to 'Index', companies_path %></li>
       <li><%= link_to 'Nueva empresa', new_company_path %></li>
       <li><%= link_to 'Nueva area', new_area_path %></li>
+      <li><%= link_to 'Areas', areas_path %></li>
     </ul>
 </nav>

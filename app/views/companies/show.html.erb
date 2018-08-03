@@ -1,43 +1,60 @@
 <p id="notice"><%= notice %></p>
-
-<ul>
-  <% @company.employees.each do |e| %>
-  <li>
-    <%= e.first_name %>
-    <%= e.last_name %>
-    <%= e.email %>
-    <%= e.area_id %>
-    <%= link_to "X", company_employee_path(@company, e), method: :delete %>
-  </li>
-  <% end %>
-</ul>
-
+  <br>
 
 <p>
-  <strong>Name:</strong>
-  <%= @company.name %>
-</p>
-<%= form_with(model: [@company ,@employee], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-  <div class="field">
-    <%= form.label :area_id %>
-    <%= form.text_field :area_id %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+</p>
+<div class="form-group col-md-6">
+  <strong>Name:</strong>
+  <h4>  <%= @company.name %></h4>
+  <%= form_with(model: [@company ,@employee], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name, class: 'form-control' %>
+    </div>
+    <div class="field">
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name, class: 'form-control'  %>
+    </div>
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.text_field :email, class: 'form-control'  %>
+    </div>
+    <div class="field">
+      <%= form.label :area_id %>
+      <%= form.select :area_id, Area.pluck(:name, :id), class: 'form-control'  %>
+    </div>
+
+    <div class="actions">
+       <%= form.submit "Registrar Empleado", class:'btn btn-info'%>
+    </div>
+  <% end %>
+  <%= link_to 'Edit', edit_company_path(@company), class:'btn btn-primary' %>
+  <%= link_to 'Back', companies_path, class:'btn btn-success' %>
+</div>
+<div class="col-md-6">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th >Name</th>
+        <th >Last Name</th>
+        <th >Email</th>
+        <th colspan="2">Area</th>
+      </tr>
+    </thead>
+    <ul>
+      <tbody>
+
+        <% @company.employees.each do |e| %>
+          <tr>
+            <td> <%= e.first_name %></td>
+            <td> <%= e.last_name %></td>
+            <td> <%= e.email %></td>
+            <td> <%= e.area_id %></td>
+            <td><%= link_to 'Destroy', company_employee_path(@company, e), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+</div>
